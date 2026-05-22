@@ -4,587 +4,105 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Shahzad Tanveer — AI & ML Researcher</title>
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+
 :root{
   --bg:#07101E;--bg2:#0C1628;--bg3:#111E35;
   --surface:#162240;--surf2:#1C2D52;
-  --blue:#4A90E2;--blue-lt:#78B4F5;--blue-dim:rgba(74,144,226,.10);--blue-glow:rgba(74,144,226,.22);
-  --gold:#C9A84C;--gold-dim:rgba(201,168,76,.12);
-  --silver:#B8CCE0;
-  --text:#E4EDF8;--text2:#7A96B5;--text3:#344D68;
-  --border:rgba(74,144,226,.08);--borderg:rgba(74,144,226,.20);
+  --blue:#4A90E2;--blue-lt:#78B4F5;
+  --text:#E4EDF8;--text2:#7A96B5;
+  --border:rgba(74,144,226,.08);
+  --borderg:rgba(74,144,226,.20);
 }
-html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.7;overflow-x:hidden;cursor:none}
 
-/* CURSOR */
-#cur{position:fixed;width:10px;height:10px;background:var(--blue);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:width .15s,height .15s}
-#cring{position:fixed;width:34px;height:34px;border:1.5px solid rgba(74,144,226,.4);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:width .3s,height .3s}
+body{
+  background:var(--bg);
+  color:var(--text);
+  font-family:'Inter',sans-serif;
+  overflow-x:hidden;
+}
 
-/* CANVAS */
-#bgc{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.55}
+/* HERO */
+.hero{
+  position:relative;
+  min-height:100vh;
+  display:grid;
+  grid-template-columns:1fr auto;
+  align-items:center;
+  gap:4rem;
+  padding:8rem 5rem;
+}
 
-/* NAV */
-nav{position:fixed;top:0;left:0;right:0;z-index:100;padding:1.3rem 5rem;display:flex;justify-content:space-between;align-items:center;transition:background .4s,border-color .4s}
-nav.scrolled{background:rgba(7,16,30,.94);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
-.nav-logo{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:1.5rem;color:var(--text);text-decoration:none;display:flex;align-items:center;gap:10px}
-.ndot{width:8px;height:8px;border-radius:50%;background:var(--blue);animation:bpulse 2.5s ease infinite}
-@keyframes bpulse{0%,100%{box-shadow:0 0 0 0 rgba(74,144,226,.6)}50%{box-shadow:0 0 0 6px rgba(74,144,226,0)}}
-.nav-links{display:flex;gap:2.8rem;list-style:none}
-.nav-links a{font-size:.75rem;font-weight:500;letter-spacing:.1em;text-transform:uppercase;color:var(--text2);text-decoration:none;transition:color .2s;position:relative}
-.nav-links a::after{content:'';position:absolute;bottom:-4px;left:0;right:0;height:1px;background:var(--blue);transform:scaleX(0);transform-origin:left;transition:transform .3s}
-.nav-links a:hover{color:var(--blue)}
-.nav-links a:hover::after{transform:scaleX(1)}
-.nav-btn{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);text-decoration:none;padding:9px 22px;border:1px solid var(--blue);border-radius:3px;transition:all .3s}
-.nav-btn:hover{background:var(--blue);color:var(--bg)}
+/* IMAGE */
+.hero-photo-wrap{
+  position:relative;
+  display:block; /* FIX: ensure visible on all devices */
+}
 
-/* ═══ HERO ═══ */
-.hero{position:relative;z-index:1;min-height:100vh;display:grid;grid-template-columns:1fr auto;align-items:center;gap:4rem;padding:8rem 5rem 5rem;overflow:hidden}
-.orb1{position:absolute;top:-10%;right:-5%;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,rgba(74,144,226,.06) 0%,transparent 65%);animation:fl 10s ease-in-out infinite;pointer-events:none}
-.orb2{position:absolute;bottom:-15%;left:-5%;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(201,168,76,.04) 0%,transparent 65%);animation:fl 13s ease-in-out infinite reverse;pointer-events:none}
-@keyframes fl{0%,100%{transform:translate(0,0)}50%{transform:translate(22px,-28px)}}
+.hero-photo{
+  width:280px;
+  height:390px;
+  object-fit:cover;
+  border-radius:14px;
+  border:2px solid var(--surf2);
+}
 
-.hero-left{}
-.hero-tag{display:inline-flex;align-items:center;gap:9px;background:var(--blue-dim);border:1px solid var(--borderg);border-radius:3px;padding:6px 16px;font-size:.68rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--blue);margin-bottom:2rem;animation:up .8s cubic-bezier(.16,1,.3,1) both}
-.pdot{width:6px;height:6px;border-radius:50%;background:var(--blue);animation:bpulse 2s ease infinite}
-.hero-name{font-family:'Cormorant Garamond',serif;font-size:clamp(3.5rem,6.5vw,6.5rem);font-weight:700;line-height:.92;letter-spacing:-.03em;overflow:hidden;margin-bottom:.5rem}
-.nl{display:block;animation:rl .9s cubic-bezier(.16,1,.3,1) both}
-.nl.out{color:transparent;-webkit-text-stroke:1.5px var(--blue);opacity:.5;animation-delay:.12s}
-@keyframes rl{from{transform:translateY(110%);opacity:0}to{transform:translateY(0);opacity:1}}
-.hero-role{font-size:clamp(.9rem,1.5vw,1.1rem);font-weight:400;color:var(--silver);letter-spacing:.06em;margin-bottom:1.8rem;min-height:1.6em;animation:up .8s .25s cubic-bezier(.16,1,.3,1) both}
-.hero-desc{font-size:.98rem;color:var(--text2);max-width:500px;line-height:1.9;margin-bottom:2.8rem;animation:up .8s .35s cubic-bezier(.16,1,.3,1) both}
-@keyframes up{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
-.hero-ctas{display:flex;gap:1rem;flex-wrap:wrap;margin-bottom:3rem;animation:up .8s .45s cubic-bezier(.16,1,.3,1) both}
-.btn-p{display:inline-flex;align-items:center;gap:9px;background:var(--blue);color:var(--bg);font-weight:600;font-size:.85rem;letter-spacing:.05em;padding:14px 30px;border-radius:3px;text-decoration:none;position:relative;overflow:hidden;transition:transform .3s,box-shadow .3s}
-.btn-p::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,transparent,rgba(255,255,255,.15),transparent);transform:translateX(-100%);transition:transform .5s}
-.btn-p:hover::before{transform:translateX(100%)}
-.btn-p:hover{transform:translateY(-2px);box-shadow:0 10px 35px rgba(74,144,226,.4)}
-.btn-s{display:inline-flex;align-items:center;gap:9px;background:transparent;color:var(--text2);font-weight:500;font-size:.85rem;letter-spacing:.05em;padding:13px 28px;border-radius:3px;border:1px solid var(--borderg);text-decoration:none;transition:all .3s}
-.btn-s:hover{color:var(--blue);border-color:var(--blue);transform:translateY(-2px)}
-
-/* hero badges row */
-.hero-badges{display:flex;gap:.75rem;flex-wrap:wrap;animation:up .8s .55s cubic-bezier(.16,1,.3,1) both}
-.hbadge{display:inline-flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:6px 14px;font-size:.72rem;font-weight:500;color:var(--text2)}
-.hbadge-dot{width:5px;height:5px;border-radius:50%}
-
-/* PHOTO CARD */
-.hero-photo-wrap{position:relative;animation:up .9s .3s cubic-bezier(.16,1,.3,1) both;flex-shrink:0}
-.photo-ring{position:absolute;inset:-14px;border-radius:20px;border:1px solid var(--borderg);animation:ringPulse 4s ease infinite}
-.photo-ring2{position:absolute;inset:-28px;border-radius:26px;border:1px dashed rgba(74,144,226,.15);animation:ringPulse 4s 1s ease infinite}
-@keyframes ringPulse{0%,100%{opacity:.6;transform:scale(1)}50%{opacity:.3;transform:scale(1.015)}}
-.hero-photo{width:280px;height:390px;object-fit:cover;object-position:top center;border-radius:14px;display:block;position:relative;z-index:1;filter:grayscale(15%) contrast(1.05);border:2px solid var(--surf2)}
-.photo-badge{position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);background:var(--surface);border:1px solid var(--borderg);border-radius:100px;padding:8px 20px;white-space:nowrap;font-size:.72rem;font-weight:600;color:var(--blue);letter-spacing:.08em;z-index:2;text-transform:uppercase}
-.photo-corner{position:absolute;width:28px;height:28px;z-index:3}
-.pc-tl{top:-6px;left:-6px;border-top:2px solid var(--blue);border-left:2px solid var(--blue);border-radius:3px 0 0 0}
-.pc-tr{top:-6px;right:-6px;border-top:2px solid var(--blue);border-right:2px solid var(--blue);border-radius:0 3px 0 0}
-.pc-bl{bottom:-6px;left:-6px;border-bottom:2px solid var(--blue);border-left:2px solid var(--blue);border-radius:0 0 0 3px}
-.pc-br{bottom:-6px;right:-6px;border-bottom:2px solid var(--blue);border-right:2px solid var(--blue);border-radius:0 0 3px 0}
-
-/* STATS BAR */
-.stats-bar{position:relative;z-index:1;padding:2.5rem 5rem;display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--border)}
-.stat-cell{background:var(--bg2);padding:2rem;text-align:center;transition:background .3s}
-.stat-cell:hover{background:var(--surface)}
-.stat-n{font-family:'Cormorant Garamond',serif;font-size:2.6rem;font-weight:700;color:var(--blue);line-height:1;margin-bottom:4px}
-.stat-cell:nth-child(2) .stat-n{color:var(--gold)}
-.stat-cell:nth-child(3) .stat-n{color:var(--silver)}
-.stat-cell:nth-child(4) .stat-n{color:var(--blue-lt)}
-.stat-l{font-size:.65rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--text3)}
-
-/* SECTIONS */
-section{position:relative;z-index:1;padding:6rem 5rem}
-.div{position:relative;z-index:1;height:1px;margin:0 5rem;background:linear-gradient(90deg,transparent,var(--border),transparent)}
-.sh{display:flex;align-items:center;gap:1.2rem;margin-bottom:4rem}
-.sn{font-size:.62rem;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:var(--blue);opacity:.45}
-.sl{flex:0 0 48px;height:1px;background:var(--borderg)}
-h2{font-family:'Cormorant Garamond',serif;font-size:clamp(1.9rem,3.5vw,2.7rem);font-weight:700;letter-spacing:-.01em;color:var(--text)}
-h2 em{font-style:italic;color:var(--blue)}
-
-/* ABOUT */
-.about-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:5rem;align-items:start}
-.at p{color:var(--text2);margin-bottom:1.1rem;font-size:.98rem;line-height:1.9}
-.hi{display:inline;background:linear-gradient(var(--blue-dim),var(--blue-dim));background-size:0% 100%;background-repeat:no-repeat;background-position:left;border-radius:2px;transition:background-size .6s ease;padding:1px 4px;color:#89c3f7;font-weight:500}
-.hi.lit{background-size:100% 100%}
-
-/* ═══ SKILLS SLIDER ═══ */
-.skills-section{background:var(--bg2);padding:5rem}
-.slider-outer{overflow:hidden;position:relative}
-.slider-outer::before,.slider-outer::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
-.slider-outer::before{left:0;background:linear-gradient(90deg,var(--bg2),transparent)}
-.slider-outer::after{right:0;background:linear-gradient(-90deg,var(--bg2),transparent)}
-
-.skill-track{display:flex;gap:1.2rem;width:max-content}
-.skill-track.row1{animation:scrollL 40s linear infinite}
-.skill-track.row2{animation:scrollR 45s linear infinite;margin-top:1rem}
-@keyframes scrollL{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes scrollR{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
-.slider-outer:hover .skill-track{animation-play-state:paused}
-
-.sk-chip{display:inline-flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:100px;padding:10px 20px;white-space:nowrap;font-size:.82rem;font-weight:500;color:var(--text2);transition:all .3s;cursor:default;flex-shrink:0}
-.sk-chip:hover{background:var(--surf2);border-color:var(--borderg);color:var(--blue);transform:scale(1.05)}
-.sk-chip-icon{font-size:1.05rem}
-.sk-chip .bar{width:48px;height:3px;border-radius:2px;background:var(--bg3);overflow:hidden;position:relative}
-.sk-chip .bar::after{content:'';position:absolute;left:0;top:0;bottom:0;background:var(--blue);border-radius:2px;transition:width 1s ease}
-
-/* Skill categories */
-.sk-cat-title{font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:1.5rem;display:flex;align-items:center;gap:10px}
-.sk-cat-title::after{content:'';flex:1;height:1px;background:var(--border)}
-
-/* PROFICIENCY BARS (static section) */
-.prof-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem 4rem;margin-top:2rem}
-.prof-item{margin-bottom:.5rem}
-.prof-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
-.prof-name{font-size:.82rem;font-weight:600;color:var(--text2)}
-.prof-pct{font-size:.72rem;font-weight:700;color:var(--blue);letter-spacing:.04em}
-.prof-bar{height:3px;background:var(--surface);border-radius:2px;overflow:hidden}
-.prof-fill{height:100%;background:linear-gradient(90deg,var(--blue),var(--blue-lt));border-radius:2px;width:0;transition:width 1.2s cubic-bezier(.16,1,.3,1)}
-
-/* TIMELINE */
-.tl{position:relative;padding-left:2.5rem}
-.tl::before{content:'';position:absolute;left:0;top:10px;bottom:0;width:1px;background:linear-gradient(to bottom,var(--blue) 0%,rgba(74,144,226,.04) 100%)}
-.tl-item{position:relative;margin-bottom:3.5rem;padding-left:2rem;opacity:0;transform:translateX(-20px);transition:opacity .6s,transform .6s}
-.tl-item.vis{opacity:1;transform:translateX(0)}
-.tl-dot{position:absolute;left:-2.5rem;top:7px;width:10px;height:10px;border-radius:50%;background:var(--blue);box-shadow:0 0 0 3px var(--bg),0 0 0 5px rgba(74,144,226,.25);transition:box-shadow .3s}
-.tl-item:hover .tl-dot{box-shadow:0 0 0 3px var(--bg),0 0 0 9px rgba(74,144,226,.3)}
-.tl-badge{display:inline-block;background:var(--blue-dim);border:1px solid var(--borderg);border-radius:2px;padding:2px 10px;font-size:.62rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.6rem}
-.tl-role{font-family:'Cormorant Garamond',serif;font-size:1.3rem;font-weight:700;color:var(--text);margin-bottom:3px}
-.tl-org{font-size:.82rem;font-weight:600;color:var(--silver);margin-bottom:3px;opacity:.8}
-.tl-period{font-size:.74rem;color:var(--text3);margin-bottom:.8rem;letter-spacing:.04em}
-.tl-desc{font-size:.88rem;color:var(--text2);line-height:1.78}
-.tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:.8rem}
-.tg{background:var(--bg3);border:1px solid var(--border);border-radius:3px;padding:3px 9px;font-size:.67rem;color:var(--text3);font-weight:600;transition:all .2s}
-.tg:hover{background:var(--surface);color:var(--silver);border-color:var(--borderg)}
-
-/* EDUCATION */
-.edu-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem}
-.edu-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:2.2rem;position:relative;overflow:hidden;transition:transform .35s,box-shadow .35s,border-color .35s}
-.edu-card:hover{border-color:var(--borderg);transform:translateY(-5px);box-shadow:0 22px 55px rgba(0,0,0,.4)}
-.edu-card::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--gold));transform:scaleX(0);transform-origin:left;transition:transform .45s cubic-bezier(.16,1,.3,1)}
-.edu-card:hover::after{transform:scaleX(1)}
-.edu-icon{width:48px;height:48px;border-radius:6px;background:var(--blue-dim);border:1px solid var(--borderg);display:flex;align-items:center;justify-content:center;font-size:1.35rem;margin-bottom:1.3rem;transition:transform .3s}
-.edu-card:hover .edu-icon{transform:scale(1.1) rotate(5deg)}
-.edu-deg{font-size:.63rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin-bottom:.4rem}
-.edu-school{font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:700;color:var(--text);margin-bottom:.3rem;line-height:1.35}
-.edu-yr{font-size:.74rem;color:var(--text3);margin-bottom:.75rem}
-.edu-note{font-size:.83rem;color:var(--text2);line-height:1.72}
-.edu-badge{display:inline-block;margin-top:1rem;background:var(--gold-dim);border:1px solid rgba(201,168,76,.25);border-radius:3px;padding:3px 10px;font-size:.68rem;font-weight:700;color:var(--gold);letter-spacing:.06em}
-
-/* PROJECTS */
-.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.25rem}
-.proj-card{background:var(--surface);border:1px solid var(--border);border-radius:6px;padding:1.8rem;position:relative;overflow:hidden;transition:transform .35s,box-shadow .35s,border-color .35s}
-.proj-card:hover{border-color:var(--borderg);transform:translateY(-6px);box-shadow:0 22px 55px rgba(0,0,0,.4)}
-.proj-shine{position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--blue),var(--gold),var(--blue-lt));transform:scaleX(0);transform-origin:left;transition:transform .5s cubic-bezier(.16,1,.3,1)}
-.proj-card:hover .proj-shine{transform:scaleX(1)}
-.proj-icon{width:44px;height:44px;border-radius:5px;background:var(--blue-dim);border:1px solid var(--borderg);display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:1.1rem;transition:transform .3s}
-.proj-card:hover .proj-icon{transform:scale(1.12) rotate(-5deg)}
-.proj-name{font-family:'Cormorant Garamond',serif;font-size:1.08rem;font-weight:700;color:var(--text);margin-bottom:.5rem;line-height:1.3}
-.proj-desc{font-size:.8rem;color:var(--text2);line-height:1.72;margin-bottom:1rem}
-
-/* CONTACT */
-.contact-wrap{display:grid;grid-template-columns:1fr 1fr;gap:5rem;align-items:start}
-.c-text{font-size:.98rem;color:var(--text2);line-height:1.88;margin-bottom:1.8rem}
-.c-links{display:flex;flex-direction:column;gap:.9rem}
-.c-link{display:flex;align-items:center;gap:1.2rem;padding:1rem 1.3rem;background:var(--surface);border:1px solid var(--border);border-radius:5px;text-decoration:none;transition:all .3s;color:var(--text2);position:relative;overflow:hidden}
-.c-link::before{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--blue-dim),transparent);transform:translateX(-100%);transition:transform .4s}
-.c-link:hover::before{transform:translateX(0)}
-.c-link:hover{border-color:var(--borderg);color:var(--blue);transform:translateX(7px)}
-.c-ico{width:40px;height:40px;border-radius:5px;background:var(--blue-dim);border:1px solid var(--borderg);display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0;transition:background .3s;position:relative;z-index:1}
-.c-link:hover .c-ico{background:rgba(74,144,226,.25)}
-.c-inf{flex:1;position:relative;z-index:1}
-.c-lbl{font-size:.6rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text3)}
-.c-val{font-size:.85rem;font-weight:500}
-.c-arr{font-size:.95rem;opacity:.3;transition:all .3s;position:relative;z-index:1}
-.c-link:hover .c-arr{opacity:1;transform:translateX(4px)}
-
-/* QUOTE BANNER */
-.quote-band{position:relative;z-index:1;background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:4rem 5rem;text-align:center;overflow:hidden}
-.quote-band::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,var(--blue-dim),transparent 50%,var(--gold-dim));pointer-events:none}
-.quote-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.5rem,3vw,2.2rem);font-weight:400;font-style:italic;color:var(--text);line-height:1.5;max-width:800px;margin:0 auto 1rem;position:relative;z-index:1}
-.quote-text::before{content:'"';font-size:4rem;color:var(--blue);opacity:.3;position:absolute;top:-.5rem;left:-2rem;font-style:normal;line-height:1}
-.quote-attr{font-size:.75rem;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text3);position:relative;z-index:1}
-
-/* FOOTER */
-footer{position:relative;z-index:1;padding:2rem 5rem;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center}
-.ft-copy{font-size:.73rem;color:var(--text3)}
-.ft-brand{font-family:'Cormorant Garamond',serif;font-size:.9rem;font-weight:700;color:var(--blue);opacity:.4;letter-spacing:.06em}
-
-/* REVEAL */
-.rev{opacity:0;transform:translateY(32px);transition:opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)}
-.rev.vis{opacity:1;transform:translateY(0)}
-.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}
-
+/* REMOVE OLD MOBILE HIDE RULE (IMPORTANT FIX)
 @media(max-width:1024px){
-  .hero{grid-template-columns:1fr;gap:3rem}
   .hero-photo-wrap{display:none}
 }
-@media(max-width:900px){
-  nav{padding:1rem 1.5rem}
-  section,footer,.skills-section,.stats-bar,.quote-band{padding:4rem 1.5rem}
-  .div{margin:0 1.5rem}
-  .hero{padding:7rem 1.5rem 4rem}
-  .nav-links{display:none}
-  .about-grid,.contact-wrap,.edu-grid,.prof-grid{grid-template-columns:1fr;gap:2rem}
-  .proj-grid{grid-template-columns:1fr}
+*/
+
+/* RESPONSIVE FIX */
+@media(max-width:1024px){
+  .hero{
+    grid-template-columns:1fr;
+    text-align:center;
+    gap:2rem;
+    padding:6rem 1.5rem;
+  }
+
+  .hero-photo-wrap{
+    display:flex;
+    justify-content:center;
+    margin-top:2rem;
+  }
+
+  .hero-photo{
+    width:220px;
+    height:300px;
+  }
+}
+
+@media(max-width:600px){
+  .hero-photo{
+    width:180px;
+    height:250px;
+  }
 }
 </style>
 </head>
+
 <body>
-<div id="cur"></div>
-<div id="cring"></div>
-<canvas id="bgc"></canvas>
 
-<!-- NAV -->
-<nav id="nav">
-  <a href="#" class="nav-logo"><span class="ndot"></span>Shahzad Tanveer</a>
-  <ul class="nav-links">
-    <li><a href="#about">About</a></li>
-    <li><a href="#skills">Skills</a></li>
-    <li><a href="#experience">Experience</a></li>
-    <li><a href="#education">Education</a></li>
-    <li><a href="#projects">Projects</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a href="https://www.linkedin.com/in/shahzad-tanveer-a59b0039a" target="_blank" class="nav-btn">LinkedIn ↗</a>
-</nav>
+<section class="hero">
 
-<!-- HERO -->
-<section class="hero" id="home">
-  <div class="orb1"></div><div class="orb2"></div>
   <div class="hero-left">
-    <div class="hero-tag"><span class="pdot"></span>Open to Research &amp; Collaboration</div>
-    <h1 class="hero-name">
-      <span class="nl">Shahzad</span>
-      <span class="nl out">Tanveer</span>
-    </h1>
-    <p class="hero-role" id="typed"></p>
-    <p class="hero-desc">Computer Science graduate student at FAST NUCES — building intelligent systems at the intersection of Machine Learning, Deep Learning, and Computer Vision. Passionate educator with 8+ years transforming how students experience technology.</p>
-    <div class="hero-ctas">
-      <a href="#experience" class="btn-p">Explore My Work →</a>
-      <a href="#contact" class="btn-s">Get in Touch</a>
-    </div>
-    <div class="hero-badges">
-      <span class="hbadge"><span class="hbadge-dot" style="background:#4A90E2"></span>Machine Learning</span>
-      <span class="hbadge"><span class="hbadge-dot" style="background:#C9A84C"></span>Deep Learning</span>
-      <span class="hbadge"><span class="hbadge-dot" style="background:#78B4F5"></span>Computer Vision</span>
-      <span class="hbadge"><span class="hbadge-dot" style="background:#B8CCE0"></span>FAST NUCES Instructor</span>
-    </div>
+    <h1>Shahzad Tanveer</h1>
+    <p>AI & ML Researcher</p>
   </div>
-  <!-- PHOTO -->
+
   <div class="hero-photo-wrap">
-    <div class="photo-ring"></div>
-    <div class="photo-ring2"></div>
-    <div class="pc-tl photo-corner"></div>
-    <div class="pc-tr photo-corner"></div>
-    <div class="pc-bl photo-corner"></div>
-    <div class="pc-br photo-corner"></div>
-    <img class="hero-photo" src="/shahzad.jpeg" alt="Shahzad Tanveer">
-    <div class="photo-badge">🎓 FAST NUCES Instructor</div>
+    <img src="shahzad.jpeg" class="hero-photo" alt="Shahzad Tanveer">
   </div>
+
 </section>
 
-<!-- STATS BAR -->
-<div class="stats-bar" id="statsbar">
-  <div class="stat-cell"><div class="stat-n" id="cnt1">0+</div><div class="stat-l">Years Teaching</div></div>
-  <div class="stat-cell"><div class="stat-n" id="cnt2">0.00</div><div class="stat-l">B.Sc CGPA</div></div>
-  <div class="stat-cell"><div class="stat-n">4+</div><div class="stat-l">Institutions Served</div></div>
-  <div class="stat-cell"><div class="stat-n">MS</div><div class="stat-l">Graduate Research</div></div>
-</div>
-
-<!-- ABOUT -->
-<section id="about">
-  <div class="sh rev"><span class="sn">01</span><div class="sl"></div><h2>About <em>Me</em></h2></div>
-  <div class="about-grid">
-    <div class="at rev d1">
-      <p>I am a <span class="hi">Computer Science graduate student at FAST NUCES</span> with a deep passion for Machine Learning, Deep Learning, and Computer Vision. My work focuses on building intelligent, efficient systems that transform raw data into meaningful real-world impact.</p>
-      <p>I bridge theoretical research with practical engineering — designing scalable ML pipelines, <span class="hi">visual recognition systems</span>, and optimized algorithms grounded in performance-first thinking. I am actively exploring how AI can tackle complex challenges from data-driven decision-making to visual understanding.</p>
-      <p>Beyond research, I serve as an <span class="hi">Instructor at FAST NUCES</span> — one of Pakistan's most prestigious CS universities — where I teach undergraduate courses and mentor the next generation of AI engineers. With over 8 years in education, I bring the same rigor and passion to teaching that I bring to research.</p>
-    </div>
-    <div class="rev d2">
-      <p style="font-size:.65rem;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--text3);margin-bottom:1.5rem">Proficiency Overview</p>
-      <div class="prof-grid">
-        <div class="prof-item"><div class="prof-head"><span class="prof-name">Machine Learning</span><span class="prof-pct">90%</span></div><div class="prof-bar"><div class="prof-fill" data-w="90"></div></div></div>
-        <div class="prof-item"><div class="prof-head"><span class="prof-name">Deep Learning</span><span class="prof-pct">85%</span></div><div class="prof-bar"><div class="prof-fill" data-w="85"></div></div></div>
-        <div class="prof-item"><div class="prof-head"><span class="prof-name">Computer Vision</span><span class="prof-pct">82%</span></div><div class="prof-bar"><div class="prof-fill" data-w="82"></div></div></div>
-        <div class="prof-item"><div class="prof-head"><span class="prof-name">Python</span><span class="prof-pct">92%</span></div><div class="prof-bar"><div class="prof-fill" data-w="92"></div></div></div>
-        <div class="prof-item"><div class="prof-head"><span class="prof-name">C / C++</span><span class="prof-pct">80%</span></div><div class="prof-bar"><div class="prof-fill" data-w="80"></div></div></div>
-        <div class="prof-item"><div class="prof-head"><span class="prof-name">JavaScript</span><span class="prof-pct">75%</span></div><div class="prof-bar"><div class="prof-fill" data-w="75"></div></div></div>
-        <div class="prof-item"><div class="prof-head"><span class="prof-name">SQL / Oracle DB</span><span class="prof-pct">78%</span></div><div class="prof-bar"><div class="prof-fill" data-w="78"></div></div></div>
-        <div class="prof-item"><div class="prof-head"><span class="prof-name">System Design</span><span class="prof-pct">83%</span></div><div class="prof-bar"><div class="prof-fill" data-w="83"></div></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="div"></div>
-
-<!-- SKILLS SLIDER -->
-<section class="skills-section" id="skills">
-  <div class="sh rev"><span class="sn">02</span><div class="sl"></div><h2>Technical <em>Skills</em></h2></div>
-  <div class="rev d1">
-    <p class="sk-cat-title">AI &amp; Machine Learning Stack</p>
-    <div class="slider-outer">
-      <div class="skill-track row1" id="r1">
-        <div class="sk-chip"><span class="sk-chip-icon">🧠</span>Machine Learning</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🔥</span>Deep Learning</div>
-        <div class="sk-chip"><span class="sk-chip-icon">👁️</span>Computer Vision</div>
-        <div class="sk-chip"><span class="sk-chip-icon">📊</span>Data Analysis</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🤖</span>Neural Networks</div>
-        <div class="sk-chip"><span class="sk-chip-icon">📈</span>Model Training</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🧪</span>Experimentation</div>
-        <div class="sk-chip"><span class="sk-chip-icon">⚙️</span>Algorithm Design</div>
-        <div class="sk-chip"><span class="sk-chip-icon">📡</span>Pattern Recognition</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🔬</span>Research Methods</div>
-        <!-- duplicate for seamless loop -->
-        <div class="sk-chip"><span class="sk-chip-icon">🧠</span>Machine Learning</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🔥</span>Deep Learning</div>
-        <div class="sk-chip"><span class="sk-chip-icon">👁️</span>Computer Vision</div>
-        <div class="sk-chip"><span class="sk-chip-icon">📊</span>Data Analysis</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🤖</span>Neural Networks</div>
-        <div class="sk-chip"><span class="sk-chip-icon">📈</span>Model Training</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🧪</span>Experimentation</div>
-        <div class="sk-chip"><span class="sk-chip-icon">⚙️</span>Algorithm Design</div>
-        <div class="sk-chip"><span class="sk-chip-icon">📡</span>Pattern Recognition</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🔬</span>Research Methods</div>
-      </div>
-    </div>
-    <p class="sk-cat-title" style="margin-top:2.5rem">Programming &amp; Development</p>
-    <div class="slider-outer">
-      <div class="skill-track row2" id="r2">
-        <div class="sk-chip"><span class="sk-chip-icon">🐍</span>Python</div>
-        <div class="sk-chip"><span class="sk-chip-icon">⚡</span>C / C++</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🌐</span>JavaScript</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🐘</span>PHP</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🗄️</span>SQL / Oracle DB</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🔗</span>OOP Design</div>
-        <div class="sk-chip"><span class="sk-chip-icon">📝</span>Scripting</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🏗️</span>System Optimization</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🔧</span>Compiler Design</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🎯</span>Problem Solving</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🧩</span>Data Structures</div>
-        <div class="sk-chip"><span class="sk-chip-icon">📐</span>Software Architecture</div>
-        <!-- duplicate -->
-        <div class="sk-chip"><span class="sk-chip-icon">🐍</span>Python</div>
-        <div class="sk-chip"><span class="sk-chip-icon">⚡</span>C / C++</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🌐</span>JavaScript</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🐘</span>PHP</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🗄️</span>SQL / Oracle DB</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🔗</span>OOP Design</div>
-        <div class="sk-chip"><span class="sk-chip-icon">📝</span>Scripting</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🏗️</span>System Optimization</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🔧</span>Compiler Design</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🎯</span>Problem Solving</div>
-        <div class="sk-chip"><span class="sk-chip-icon">🧩</span>Data Structures</div>
-        <div class="sk-chip"><span class="sk-chip-icon">📐</span>Software Architecture</div>
-      </div>
-    </div>
-  </div>
-</section>
-<div class="div"></div>
-
-<!-- QUOTE BAND -->
-<div class="quote-band rev">
-  <p class="quote-text">Transforming data into insight, and insight into impact — through intelligent systems built to last.</p>
-  <p class="quote-attr">— Shahzad Tanveer · ML Researcher &amp; Educator</p>
-</div>
-<div class="div"></div>
-
-<!-- EXPERIENCE -->
-<section id="experience">
-  <div class="sh rev"><span class="sn">03</span><div class="sl"></div><h2><em>Work</em> Experience</h2></div>
-  <div class="tl">
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-badge">Current Position</div>
-      <div class="tl-role">Instructor — Computer Science</div>
-      <div class="tl-org">National University of Computer and Emerging Sciences (FAST NUCES)</div>
-      <div class="tl-period">Aug 2025 – Present · Full-time · Faisalabad, Punjab, Pakistan</div>
-      <p class="tl-desc">Teaching undergraduate Computer Science at one of Pakistan's premier CS universities. Delivering advanced instruction in object-oriented languages, query languages, and scripting while actively mentoring students toward impactful careers in AI, ML, and software engineering.</p>
-      <div class="tags"><span class="tg">OOP Languages</span><span class="tg">Query Languages</span><span class="tg">Scripting</span><span class="tg">Mentorship</span><span class="tg">FAST NUCES</span></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-role">Lecturer — Computer Science</div>
-      <div class="tl-org">KIPS Education System</div>
-      <div class="tl-period">Apr 2025 – Jul 2025 · 4 months · Full-time · Faisalabad</div>
-      <p class="tl-desc">Delivered comprehensive Computer Science lectures at a premier institution, reinforcing core programming concepts, algorithmic thinking, and problem-solving methodologies for pre-university students preparing for competitive university entrance.</p>
-      <div class="tags"><span class="tg">Lecturing</span><span class="tg">CS Fundamentals</span><span class="tg">Algorithms</span></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-role">Visiting Lecturer — Computer Science</div>
-      <div class="tl-org">Government Graduate College Samanabad Faisalabad</div>
-      <div class="tl-period">Jan 2024 – Mar 2025 · 1 year 3 months · Full-time · Faisalabad</div>
-      <p class="tl-desc">Bridged the gap between theoretical computer science and applied programming. Developed engaging coursework materials, delivered lectures, and guided students through hands-on laboratory sessions building real-world coding skills.</p>
-      <div class="tags"><span class="tg">Visiting Lecturer</span><span class="tg">Course Development</span><span class="tg">Lab Work</span><span class="tg">Applied CS</span></div>
-    </div>
-    <div class="tl-item">
-      <div class="tl-dot"></div>
-      <div class="tl-role">Teacher — Computer Science</div>
-      <div class="tl-org">Student's Inn College</div>
-      <div class="tl-period">Sep 2017 – Jun 2023 · 5 years 10 months · On-site · Faisalabad</div>
-      <p class="tl-desc">Spent nearly six years establishing a strong educational foundation as a Computer Science teacher. Designed and delivered comprehensive curricula across multiple grade levels, inspiring hundreds of students toward technical careers and fostering a culture of analytical problem-solving.</p>
-      <div class="tags"><span class="tg">5+ Years</span><span class="tg">Curriculum Design</span><span class="tg">Student Mentorship</span><span class="tg">Multi-grade Teaching</span></div>
-    </div>
-  </div>
-</section>
-<div class="div"></div>
-
-<!-- EDUCATION -->
-<section id="education">
-  <div class="sh rev"><span class="sn">04</span><div class="sl"></div><h2><em>Education</em> &amp; Academic Journey</h2></div>
-  <div class="edu-grid">
-    <div class="edu-card rev d1">
-      <div class="edu-icon">🎓</div>
-      <div class="edu-deg">Master's Degree · Computer Science</div>
-      <div class="edu-school">FAST NUCES · Chiniot-Faisalabad Campus</div>
-      <div class="edu-yr">Jan 2026 – Present</div>
-      <p class="edu-note">Pursuing advanced expertise in Machine Learning, Deep Learning, and Computer Vision. Recently built an "Incremental Type Checker" — a compiler optimization system that translates only modified lines of code rather than recompiling entire programs, demonstrating mastery of programming language theory, performance engineering, and algorithmic optimization.</p>
-      <span class="edu-badge">Currently Enrolled</span>
-    </div>
-    <div class="edu-card rev d2">
-      <div class="edu-icon">🏛️</div>
-      <div class="edu-deg">Bachelor's Degree · Computer Science</div>
-      <div class="edu-school">Government College University, Faisalabad</div>
-      <div class="edu-yr">Oct 2017 – Sep 2021</div>
-      <p class="edu-note">Graduated with distinction across C, C++, JavaScript, and PHP. Delivered notable semester projects: an Arduino clapping-light (IoT &amp; embedded systems), a Library Management System built on Oracle 10g XE, and the capstone project "E-Tourism" — a full-stack digital tourist guidance platform that received top marks.</p>
-      <span class="edu-badge">CGPA 3.73 / 4.00</span>
-    </div>
-  </div>
-</section>
-<div class="div"></div>
-
-<!-- PROJECTS -->
-<section id="projects">
-  <div class="sh rev"><span class="sn">05</span><div class="sl"></div><h2>Featured <em>Projects</em></h2></div>
-  <div class="proj-grid">
-    <div class="proj-card rev">
-      <div class="proj-shine"></div>
-      <div class="proj-icon">⚡</div>
-      <div class="proj-name">Incremental Type Checker</div>
-      <p class="proj-desc">A compiler optimization that processes only modified code lines rather than recompiling entire programs — advanced PL theory meets real-world performance engineering. Built during MS studies at FAST NUCES.</p>
-      <div class="tags"><span class="tg">Compiler Design</span><span class="tg">Optimization</span><span class="tg">PL Theory</span><span class="tg">Pyhton</span></div>
-    </div>
-    <div class="proj-card rev d1">
-      <div class="proj-shine"></div>
-      <div class="proj-icon">🌍</div>
-      <div class="proj-name">E-Tourism Platform</div>
-      <p class="proj-desc">Final year capstone project enabling tourists to access digital travel guidelines and location-based services. A full-stack web application that modernizes the tourism experience through smart technology.</p>
-      <div class="tags"><span class="tg">Full Stack</span><span class="tg">PHP</span><span class="tg">JavaScript</span><span class="tg">Web Dev</span></div>
-    </div>
-    <div class="proj-card rev d2">
-      <div class="proj-shine"></div>
-      <div class="proj-icon">📚</div>
-      <div class="proj-name">Library Management System</div>
-      <p class="proj-desc">Complete academic library solution with book cataloguing, member management, and borrowing records — built on Oracle 10g XE with robust database design and optimized SQL queries.</p>
-      <div class="tags"><span class="tg">Oracle 10g XE</span><span class="tg">Database Design</span><span class="tg">SQL</span></div>
-    </div>
-    <div class="proj-card rev">
-      <div class="proj-shine"></div>
-      <div class="proj-icon">💡</div>
-      <div class="proj-name">Clapping Light — Arduino</div>
-      <p class="proj-desc">An embedded systems project using Arduino that detects sound claps to toggle a light circuit — exploring IoT concepts, sensor integration, and hardware-software interfacing in physical computing.</p>
-      <div class="tags"><span class="tg">Arduino</span><span class="tg">Embedded Systems</span><span class="tg">IoT</span></div>
-    </div>
-    <div class="proj-card rev d1">
-      <div class="proj-shine"></div>
-      <div class="proj-icon">🤖</div>
-      <div class="proj-name">ML &amp; CV Research (Ongoing)</div>
-      <p class="proj-desc">Active MS research in Machine Learning, Deep Learning, and Computer Vision — building scalable, optimized models for data-driven decision-making and intelligent visual understanding systems.</p>
-      <div class="tags"><span class="tg">ML</span><span class="tg">Deep Learning</span><span class="tg">Computer Vision</span><span class="tg">Research</span></div>
-    </div>
-    <div class="proj-card rev d2">
-      <div class="proj-shine"></div>
-      <div class="proj-icon">📊</div>
-      <div class="proj-name">Intelligent Data Systems</div>
-      <p class="proj-desc">Research into smart algorithms and optimized data pipelines for performance-first intelligent system design — transforming raw data into actionable insights through efficient AI-driven architecture.</p>
-      <div class="tags"><span class="tg">Algorithms</span><span class="tg">Data Pipelines</span><span class="tg">System Design</span></div>
-    </div>
-  </div>
-</section>
-<div class="div"></div>
-
-<!-- CONTACT -->
-<section id="contact">
-  <div class="sh rev"><span class="sn">06</span><div class="sl"></div><h2>Let's <em>Connect</em></h2></div>
-  <div class="contact-wrap">
-    <div class="rev d1">
-      <p class="c-text">I am actively seeking opportunities to collaborate on innovative projects in AI, Machine Learning, and Computer Vision. Whether you're building research teams, exploring industry partnerships, looking for a guest speaker, or searching for a dedicated educator — I'd love to hear from you.</p>
-      <p class="c-text" style="margin-bottom:0">📍 Based in Faisalabad, Punjab, Pakistan · Open to remote collaboration globally.</p>
-    </div>
-    <div class="c-links rev d2">
-      <a href="https://www.linkedin.com/in/shahzad-tanveer-a59b0039a" target="_blank" class="c-link">
-        <div class="c-ico" style="font-weight:800;font-size:.9rem;font-family:serif">in</div>
-        <div class="c-inf"><div class="c-lbl">LinkedIn Profile</div><div class="c-val">Shahzad Tanveer</div></div>
-        <span class="c-arr">→</span>
-      </a>
-      <a href="https://github.com/" target="_blank" class="c-link">
-        <div class="c-ico">⬡</div>
-        <div class="c-inf"><div class="c-lbl">GitHub</div><div class="c-val">https://github.com/shahzad-tanveer/</div></div>
-        <span class="c-arr">→</span>
-      </a>
-      <a href="mailto:you@email.com" class="c-link">
-        <div class="c-ico">✉</div>
-        <div class="c-inf"><div class="c-lbl">Email</div><div class="c-val">shahzadtanveer442@gmail.com</div></div>
-        <span class="c-arr">→</span>
-      </a>
-    </div>
-  </div>
-</section>
-
-<footer>
-  <span class="ft-copy">© 2026 Shahzad Tanveer · All rights reserved.</span>
-  <span class="ft-brand">ML · DL · CV</span>
-</footer>
-
-<script>
-/* CURSOR */
-const cur=document.getElementById('cur'),ring=document.getElementById('cring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
-(function loop(){rx+=(mx-rx)*.1;ry+=(my-ry)*.1;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(loop);})();
-document.querySelectorAll('a,button').forEach(el=>{
-  el.addEventListener('mouseenter',()=>{cur.style.width='18px';cur.style.height='18px';ring.style.width='46px';ring.style.height='46px';});
-  el.addEventListener('mouseleave',()=>{cur.style.width='10px';cur.style.height='10px';ring.style.width='34px';ring.style.height='34px';});
-});
-
-/* CANVAS PARTICLES */
-const cv=document.getElementById('bgc'),cx=cv.getContext('2d');
-let W,H,pts=[];
-function rsz(){W=cv.width=innerWidth;H=cv.height=innerHeight;}rsz();addEventListener('resize',rsz);
-const PC=['rgba(74,144,226,','rgba(200,214,229,','rgba(201,168,76,'];
-class P{constructor(){this.init(true);}init(s){this.x=Math.random()*W;this.y=s?Math.random()*H:H+8;this.r=Math.random()*1.5+.3;this.c=PC[Math.floor(Math.random()*PC.length)];this.a=Math.random()*.4+.07;this.vy=-(Math.random()*.32+.07);this.vx=(Math.random()-.5)*.22;this.life=0;this.max=Math.random()*240+90;}step(){this.x+=this.vx;this.y+=this.vy;this.life++;if(this.life>this.max||this.y<-8)this.init(false);}draw(){const t=this.life/this.max,a=this.a*(t<.1?t/.1:t>.8?(1-t)/.2:1);cx.beginPath();cx.arc(this.x,this.y,this.r,0,Math.PI*2);cx.fillStyle=this.c+a+')';cx.fill();}}
-for(let i=0;i<110;i++)pts.push(new P());
-function lines(){for(let i=0;i<pts.length;i++)for(let j=i+1;j<pts.length;j++){const dx=pts[i].x-pts[j].x,dy=pts[i].y-pts[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<95){cx.beginPath();cx.strokeStyle='rgba(74,144,226,'+(0.05*(1-d/95))+')';cx.lineWidth=.5;cx.moveTo(pts[i].x,pts[i].y);cx.lineTo(pts[j].x,pts[j].y);cx.stroke();}}}
-(function anim(){cx.clearRect(0,0,W,H);pts.forEach(p=>{p.step();p.draw();});lines();requestAnimationFrame(anim);})();
-
-/* NAV SCROLL */
-addEventListener('scroll',()=>document.getElementById('nav').classList.toggle('scrolled',scrollY>60));
-
-/* TYPEWRITER */
-const roles=['Instructor · Machine Learning','Deep Learning Researcher','Computer Vision Engineer','AI Systems Builder','FAST NUCES Educator'];
-let ri=0,ci=0,del=false;
-const tel=document.getElementById('typed');
-function type(){const r=roles[ri];if(!del){tel.textContent=r.slice(0,++ci);if(ci===r.length){del=true;setTimeout(type,1900);return;}}else{tel.textContent=r.slice(0,--ci);if(ci===0){del=false;ri=(ri+1)%roles.length;}}setTimeout(type,del?40:65);}
-setTimeout(type,900);
-
-/* SCROLL REVEAL */
-const ro=new IntersectionObserver(es=>es.forEach(e=>e.isIntersecting&&e.target.classList.add('vis')),{threshold:.1});
-document.querySelectorAll('.rev,.tl-item').forEach(el=>ro.observe(el));
-
-/* HIGHLIGHT SWEEP */
-const ho=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.querySelectorAll('.hi').forEach((h,i)=>setTimeout(()=>h.classList.add('lit'),i*230+300));}),{threshold:.3});
-document.querySelectorAll('.at').forEach(el=>ho.observe(el));
-
-/* PROF BARS */
-const po=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.prof-fill').forEach(f=>{setTimeout(()=>{f.style.width=f.dataset.w+'%';},200);});po.unobserve(e.target);}}),{threshold:.3});
-document.querySelectorAll('.prof-grid').forEach(el=>po.observe(el));
-
-/* COUNTERS */
-function count(el,target,dec,dur=1100){let s=null;(function step(ts){if(!s)s=ts;const p=Math.min((ts-s)/dur,1),v=p*target;el.textContent=dec?v.toFixed(2):Math.floor(v)+(target>=8?'+':'');if(p<1)requestAnimationFrame(step);})(performance.now());}
-const co=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){count(document.getElementById('cnt1'),8,false);count(document.getElementById('cnt2'),3.73,true);co.unobserve(e.target);}}),{threshold:.5});
-const sb=document.getElementById('statsbar');if(sb)co.observe(sb);
-</script>
 </body>
 </html>
